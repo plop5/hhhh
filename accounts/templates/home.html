@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% block title %}iScort - Premium Escorts Platform{% endblock %}
+
+{% block content %}
+    <!-- Hero Section Premium -->
+    <section class="hero-premium text-center text-white">
+        <div class="container position-relative">
+            <h1 class="display-4 fw-bold mb-4 no-glow">
+                Bienvenido a <span style="color: #FFD700;">iScort</span>
+            </h1>
+            <p class="lead mb-4">
+                La plataforma premium de acompañantes más elegante y segura de Ecuador
+            </p>
+            <p class="mb-4" style="color: #B8B8B8; font-size: 1.2rem;">
+                🏆 Descubre a las escorts mejor valoradas por nuestros usuarios
+            </p>
+            <!-- Buscador Premium -->
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <form class="search-premium d-flex align-items-center">
+                        <i class="fas fa-search text-warning me-3"></i>
+                        <input class="form-control me-3" type="search"
+                               placeholder="Buscar por nombre, ciudad, categoría..."
+                               aria-label="Buscar">
+                        <button class="btn" type="submit">
+                            <i class="fas fa-arrow-right me-2"></i>Buscar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Podium de Rankings -->
+    {% include 'podium_ranking.html' %}
+
+    <!-- Estadísticas Premium -->
+    <div class="container">
+        <div class="stats-premium">
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ estadisticas.total_escorts }}</div>
+                        <div class="stat-label">Escorts Activas</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ estadisticas.total_ciudades }}</div>
+                        <div class="stat-label">Ciudades</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ estadisticas.total_reviews|default:"0" }}</div>
+                        <div class="stat-label">Reseñas</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Verificadas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Categorías Premium -->
+    <div class="container">
+        <div class="category-section">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #FFD700; text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);">
+                    🌟 Categorías Premium
+                </h2>
+                <p class="lead" style="color: #C0C0C0;">
+                    Explora nuestras categorías exclusivas de acompañantes profesionales
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Escorts Femeninos -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="/publicaciones/escorts-femeninos/" class="text-decoration-none">
+                        <div class="premium-card">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-venus fa-3x text-warning mb-3"></i>
+                            </div>
+                            <h5 class="card-title">💎 Escorts Femeninos</h5>
+                            <p class="card-text">Damas de compañía elegantes y sofisticadas. Perfiles verificados con fotos reales y servicios premium.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="/publicaciones/escorts-femeninos/Quito/" class="premium-badge text-decoration-none">Quito</a>
+                                <a href="/publicaciones/escorts-femeninos/Guayaquil/" class="premium-badge text-decoration-none">Guayaquil</a>
+                                <a href="/publicaciones/escorts-femeninos/Cuenca/" class="premium-badge text-decoration-none">Cuenca</a>
+                            </div>
+                            <div class="mt-3">
+                                <small class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    Calificación Premium
+                                </small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Trans y Travestis -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="/publicaciones/trans-travestis/" class="text-decoration-none">
+                        <div class="premium-card">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-transgender fa-3x text-info mb-3"></i>
+                            </div>
+                            <h5 class="card-title" style="color: #C0C0C0;">🌈 Trans y Travestis</h5>
+                            <p class="card-text">Perfiles auténticos y exclusivos. Experiencias únicas con acompañantes trans profesionales en Ecuador.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="/publicaciones/trans-travestis/Quito/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #C0C0C0, #E5E5E5);">Quito</a>
+                                <a href="/publicaciones/trans-travestis/Guayaquil/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #C0C0C0, #E5E5E5);">Guayaquil</a>
+                                <a href="/publicaciones/trans-travestis/Cuenca/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #C0C0C0, #E5E5E5);">Cuenca</a>
+                            </div>
+                            <div class="mt-3">
+                                <small class="text-info">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Perfiles Verificados
+                                </small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escorts Masculinos -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="/publicaciones/escorts-masculinos/" class="text-decoration-none">
+                        <div class="premium-card">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-mars fa-3x text-primary mb-3"></i>
+                            </div>
+                            <h5 class="card-title" style="color: #87CEEB;">🔥 Escorts Masculinos</h5>
+                            <p class="card-text">Acompañantes masculinos profesionales y discretos. Servicios de alta calidad en las principales ciudades.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="/publicaciones/escorts-masculinos/Quito/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #4169E1, #87CEEB);">Quito</a>
+                                <a href="/publicaciones/escorts-masculinos/Guayaquil/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #4169E1, #87CEEB);">Guayaquil</a>
+                                <a href="/publicaciones/escorts-masculinos/Cuenca/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #4169E1, #87CEEB);">Cuenca</a>
+                            </div>
+                            <div class="mt-3">
+                                <small class="text-primary">
+                                    <i class="fas fa-crown"></i>
+                                    Servicio Elite
+                                </small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Encuentros VIP -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a href="/publicaciones/encuentros-casuales/" class="text-decoration-none">
+                        <div class="premium-card">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-cocktail fa-3x text-danger mb-3"></i>
+                            </div>
+                            <h5 class="card-title" style="color: #CD7F32;">🥂 Encuentros VIP</h5>
+                            <p class="card-text">Experiencias exclusivas y personalizadas. Encuentros discretos de alto nivel para clientes exigentes.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="/publicaciones/encuentros-casuales/Quito/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #CD7F32, #D2691E);">Quito</a>
+                                <a href="/publicaciones/encuentros-casuales/Guayaquil/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #CD7F32, #D2691E);">Guayaquil</a>
+                                <a href="/publicaciones/encuentros-casuales/Cuenca/" class="premium-badge text-decoration-none" style="background: linear-gradient(45deg, #CD7F32, #D2691E);">Cuenca</a>
+                            </div>
+                            <div class="mt-3">
+                                <small class="text-warning">
+                                    <i class="fas fa-gem"></i>
+                                    Experiencias Únicas
+                                </small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Premium -->
+    <div class="container">
+        <div class="category-section text-center">
+            <h3 class="mb-4" style="color: #FFD700; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">
+                ✨ ¿Eres acompañante profesional?
+            </h3>
+            <p class="lead mb-4" style="color: #C0C0C0;">
+                Únete a la plataforma premium más exclusiva de Ecuador
+            </p>
+            <a href="{% url 'unisex_form' %}" class="premium-btn premium-btn-primary text-decoration-none">
+                <i class="fas fa-star me-2"></i>Crear Perfil Premium
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Publicaciones | iScort</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .mini-carrusel-gold {
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            background: rgba(255,255,255,0.95);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-height: 56px;
+        }
+        .mini-carrusel-gold .mini-gold-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid gold;
+        }
+        .mini-carrusel-gold .badge-gold {
+            background: gold;
+            color: #333;
+            font-size: 0.7rem;
+            margin-left: -10px;
+            margin-right: 8px;
+            border-radius: 8px;
+            padding: 2px 6px;
+        }
+        .seccion-nivel {
+            margin-top: 2rem;
+        }
+        .seccion-nivel h6 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .list-group-item-gold {
+            border-left: 4px solid gold;
+            background: #fffbe6;
+        }
+        .list-group-item-destacada {
+            border-left: 4px solid #bfc9d1;
+            background: #f5f7fa;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar sticky-top navbar-light bg-white px-3 mb-2">
+        <span class="navbar-brand mb-0 h1">iScort</span>
+        <a href="/" class="btn btn-link">&larr; Volver al inicio</a>
+    </nav>
+    <!-- Mini-carrusel Gold sticky -->
+    <div class="mini-carrusel-gold mb-2">
+        {% for gold in golds %}
+        <span class="d-flex align-items-center">
+            <img src="{{ gold.foto_url }}" class="mini-gold-avatar me-1" alt="{{ gold.nombre }}">
+            <span class="badge-gold">Gold</span>
+        </span>
+        {% empty %}
+        <span class="text-muted small ms-2">Sin Gold</span>
+        {% endfor %}
+    </div>
+    <div class="container mb-5">
+        <!-- Sección Gold -->
+        <div class="seccion-nivel">
+            <h6 class="text-warning">Gold</h6>
+            <ul class="list-group mb-4">
+                {% for gold in golds %}
+                <li class="list-group-item list-group-item-gold d-flex align-items-center">
+                    <img src="{{ gold.foto_url }}" class="rounded-circle me-3" style="width:48px;height:48px;object-fit:cover;border:2px solid gold;">
+                    <div>
+                        <strong>{{ gold.nombre }}</strong> <span class="badge bg-warning text-dark">Gold</span><br>
+                        <span class="small text-muted">{{ gold.descripcion }}</span>
+                    </div>
+                    <a href="#" class="btn btn-outline-primary btn-sm ms-auto">Ver perfil</a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">No hay Gold disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Sección Destacadas -->
+        <div class="seccion-nivel">
+            <h6 class="text-primary">Destacadas</h6>
+            <ul class="list-group mb-4">
+                {% for dest in destacadas %}
+                <li class="list-group-item list-group-item-destacada d-flex align-items-center">
+                    <img src="{{ dest.foto_url }}" class="rounded-circle me-3" style="width:48px;height:48px;object-fit:cover;border:2px solid #bfc9d1;">
+                    <div>
+                        <strong>{{ dest.nombre }}</strong> <span class="badge bg-primary">Destacada</span><br>
+                        <span class="small text-muted">{{ dest.descripcion }}</span>
+                    </div>
+                    <a href="#" class="btn btn-outline-primary btn-sm ms-auto">Ver perfil</a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">No hay destacadas disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Sección Normales -->
+        <div class="seccion-nivel">
+            <h6 class="text-secondary">Todas</h6>
+            <ul class="list-group mb-4">
+                {% for anuncio in anuncios %}
+                <li class="list-group-item d-flex align-items-center">
+                    {% if anuncio.fotos.first %}
+                        <img src="{{ anuncio.fotos.first.imagen.url }}" class="rounded-circle me-3" style="width:48px;height:48px;object-fit:cover;border:2px solid #dee2e6;">
+                    {% else %}
+                        <span class="rounded-circle me-3 bg-secondary" style="width:48px;height:48px;display:inline-block;"></span>
+                    {% endif %}
+                    <div>
+                        <strong>{{ anuncio.titulo }}</strong><br>
+                        <span class="small text-muted">{{ anuncio.descripcion }}</span>
+                        <div class="small">Ciudad: {{ anuncio.ciudad }}</div>
+                        <div class="small">Precio: ${{ anuncio.precio }}</div>
+                        <div class="small">Sexo: {{ anuncio.sexo }}</div>
+                    </div>
+                    <a href="#" class="btn btn-outline-primary btn-sm ms-auto">Ver perfil</a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">No hay publicaciones para esta selección.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

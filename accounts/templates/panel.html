@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Panel de Usuario | iScort{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <!-- Cabecera del panel -->
+        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-4">
+            <div class="mb-3 mb-md-0">
+                <h2 class="fw-bold mb-1" style="color:#FFD700">Tu Panel</h2>
+                <div class="text-muted">Bienvenido, <strong>{{ user.username|default:user.email }}</strong></div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                {% if user.is_authenticated %}
+                    <span class="premium-badge">Verificado</span>
+                {% else %}
+                    <span class="premium-badge" style="background:linear-gradient(45deg,#666,#999)">Invitado</span>
+                {% endif %}
+                {% if user.plan %}
+                    {% if user.plan == 'premium' %}
+                        <span class="premium-badge">Plan Premium</span>
+                    {% elif user.plan == 'vip' %}
+                        <span class="premium-badge" style="background:linear-gradient(45deg,#FFD700,#FF8C00)">Plan VIP</span>
+                    {% else %}
+                        <span class="premium-badge" style="background:linear-gradient(45deg,#B8860B,#DAA520)">Plan Básico</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Tarjeta principal con datos -->
+        <div class="premium-card mb-4">
+            <div class="row align-items-center g-4">
+                <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-start gap-3">
+                        <div>
+                            <div class="mb-1" style="color:#C0C0C0">Correo</div>
+                            <div class="fs-5">{{ user.email }}</div>
+                            <div class="mt-2" style="color:#A8A8A8">Usuario: <strong>{{ user.username }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="d-flex flex-wrap gap-2 justify-content-start justify-content-md-end">
+                        <a href="{% url 'unisex_form' %}" class="premium-btn premium-btn-primary text-decoration-none">
+                            <i class="fas fa-star me-2"></i>Crear anuncio
+                        </a>
+                        <a href="/fotos-user/" class="premium-btn premium-btn-outline text-decoration-none">
+                            <i class="fas fa-images me-2"></i>Subir fotos
+                        </a>
+                        <a href="/logout/" class="premium-btn premium-btn-outline text-decoration-none">
+                            <i class="fas fa-sign-out-alt me-2"></i>Salir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones rápidas -->
+        <div class="row g-4">
+            <div class="col-12 col-md-4">
+                <a href="/mis-anuncios/" class="text-decoration-none">
+                    <div class="premium-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="mb-0">Tus anuncios</h5>
+                            <i class="fas fa-bullhorn text-warning"></i>
+                        </div>
+                        <p class="mb-0">Gestiona, edita y publica tus anuncios activos.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-4">
+                <a href="#" class="text-decoration-none">
+                    <div class="premium-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="mb-0">Créditos</h5>
+                            <i class="fas fa-coins text-warning"></i>
+                        </div>
+                        <p class="mb-0">Compra créditos para impulsar tu visibilidad.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-4">
+                <a href="#" class="text-decoration-none">
+                    <div class="premium-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="mb-0">Editar perfil</h5>
+                            <i class="fas fa-user-edit text-warning"></i>
+                        </div>
+                        <p class="mb-0">Actualiza tus datos, fotos y preferencias.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+ </section>
+{% endblock %}

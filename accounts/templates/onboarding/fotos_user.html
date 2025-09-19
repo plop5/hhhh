@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Sube tus fotos | iScort{% endblock %}
+{% block content %}
+<section class="py-5 no-glow">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h1 class="h3 fw-bold" style="color:#FFD700;">Sube tus fotos</h1>
+      <p class="mb-0" style="color:#C0C0C0;">Puedes subir hasta {{ max_fotos }} fotos{% if max_fotos == 1 %} (plan básico){% endif %}</p>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="form-dark">
+      {% csrf_token %}
+      <div class="card mb-3" style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255, 215, 0, 0.2);">
+        <div class="card-body">
+          <div id="preview-container" class="d-flex flex-wrap mb-3"></div>
+          <input type="file" name="fotos" id="fotos" class="form-control mb-3" accept="image/*" {% if max_fotos > 1 %}multiple{% endif %} required>
+          <div class="text-danger small mb-2" id="error-msg" style="display:none;"></div>
+          <div class="d-flex justify-content-between">
+            <a href="{% url 'unisex_form' %}" class="btn btn-outline-secondary">Atrás</a>
+            <button type="submit" class="premium-btn premium-btn-primary">Publicar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
+{% block extra_body %}
+<script>
+  const MAX = Number('{{ max_fotos|default:10 }}');
+  const fotosInput = document.getElementById('fotos');
+  const previewContainer = document.getElementById('preview-container');
+  const errorMsg = document.getElementById('error-msg');
+  let filesArray = [];
+
+  function renderPreviews() {
+    previewContainer.innerHTML = '';
+    filesArray.forEach((file, idx) => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const wrap = document.createElement('div');
+        wrap.style.position = 'relative';
+        wrap.style.display = 'inline-block';
+        wrap.style.marginRight = '8px';
+        wrap.style.marginBottom = '8px';
+        wrap.innerHTML = `<img src="${e.target.result}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,0.2);"><button type="button" class="img-delete-btn" data-idx="${idx}" style="position:absolute;top:2px;right:2px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;color:#d00;font-weight:bold;width:22px;height:22px;cursor:pointer;">&times;</button>`;
+        previewContainer.appendChild(wrap);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  fotosInput.addEventListener('change', function() {
+    filesArray = Array.from(fotosInput.files);
+    if (filesArray.length > MAX) {
+      errorMsg.style.display = 'block';
+      errorMsg.textContent = `Solo puedes subir hasta ${MAX} foto${MAX>1?'s':''}.`;
+      fotosInput.value = '';
+      filesArray = [];
+      previewContainer.innerHTML = '';
+      return;
+    } else {
+      errorMsg.style.display = 'none';
+    }
+    renderPreviews();
+  });
+
+  previewContainer.addEventListener('click', function(e) {
+    if (e.target.classList.contains('img-delete-btn')) {
+      const idx = parseInt(e.target.getAttribute('data-idx'));
+      filesArray.splice(idx, 1);
+      const dataTransfer = new DataTransfer();
+      filesArray.forEach(f => dataTransfer.items.add(f));
+      fotosInput.files = dataTransfer.files;
+      renderPreviews();
+    }
+  });
+</script>
+{% endblock %}

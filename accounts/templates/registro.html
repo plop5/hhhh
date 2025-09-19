@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Registro | iScort{% endblock %}
+
+{% block content %}
+<section class="py-5 no-glow">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="card shadow-lg border-0" style="background: rgba(0,0,0,0.7); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 20px;">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h1 class="h3 fw-bold mb-2" style="color:#FFD700;">Crea tu cuenta</h1>
+                            <p class="mb-0" style="color:#C0C0C0;">Únete a la plataforma premium de iScort</p>
+                        </div>
+                        <form method="post" autocomplete="off" class="form-dark">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold" for="id_{{ field.name }}">{{ field.label }}</label>
+                                {% if field.field.widget.input_type in 'text email password' %}
+                                    {{ field|add_class:'form-control' }}
+                                {% else %}
+                                    {{ field|add_class:'form-control' }}
+                                {% endif %}
+                                {% if field.help_text %}
+                                    <div class="form-text">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% if field.name == 'password1' %}
+                                <ul class="small text-muted mb-2 ps-4">
+                                    <li>Tu contraseña no puede ser demasiado similar a tu otra información personal.</li>
+                                    <li>Debe contener al menos 8 caracteres.</li>
+                                    <li>No puede ser una contraseña común.</li>
+                                    <li>No puede ser completamente numérica.</li>
+                                </ul>
+                            {% endif %}
+                        {% endfor %}
+                                                <div class="d-grid mt-3">
+                                                    <button type="submit" class="premium-btn premium-btn-primary py-2">Registrarme</button>
+                                                </div>
+                                            </form>
+                                            <div class="mt-4 text-center">
+                                                <span style="color:#A8A8A8;">¿Ya tienes cuenta?</span>
+                                                <a href="{% url 'login' %}" class="text-decoration-underline">Inicia sesión</a>
+                                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

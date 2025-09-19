@@ -1,0 +1,252 @@
+<!-- rankings.html -->
+<!-- Sección de Rankings y Estadísticas -->
+{% if top_femeninos or top_masculinos or top_trans %}
+<div class="container-fluid mt-5 bg-white py-5">
+    <div class="container">
+        <!-- Estadísticas generales -->
+        {% if estadisticas %}
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="mb-4">🏆 Los Mejores Escorts de Ecuador</h2>
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center">
+                                <h4 class="text-primary">{{ estadisticas.total_escorts }}</h4>
+                                <small class="text-muted">Escorts Activos</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center">
+                                <h4 class="text-success">{{ estadisticas.total_ciudades }}</h4>
+                                <small class="text-muted">Ciudades</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center">
+                                <h4 class="text-warning">{{ estadisticas.total_reviews }}</h4>
+                                <small class="text-muted">Reseñas</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center">
+                                <h4 class="text-info">{{ estadisticas.promedio_satisfaccion }}★</h4>
+                                <small class="text-muted">Satisfacción</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Top Escorts Femeninos -->
+        {% if top_femeninos %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="text-primary">💃 Top Escorts Femeninos</h3>
+                    <a href="/publicaciones/escorts-femeninos/" class="btn btn-outline-primary btn-sm">Ver todas</a>
+                </div>
+                <div class="row g-3">
+                    {% for escort in top_femeninos %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm ranking-card">
+                            <div class="position-relative">
+                                {% if escort.fotos.first %}
+                                <img src="{{ escort.fotos.first.imagen.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ escort.titulo }}">
+                                {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                </div>
+                                {% endif %}
+                                <span class="position-absolute top-0 start-0 badge bg-warning m-2">
+                                    ⭐ Nuevo
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ escort.titulo|truncatechars:30 }}</h5>
+                                <p class="text-muted small mb-1">
+                                    <i class="fas fa-map-marker-alt"></i> {{ escort.ciudad }}
+                                    | <i class="fas fa-dollar-sign"></i> ${{ escort.precio }}/h
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ escort.usuario.first_name|default:escort.usuario.username }}</small>
+                                    <small class="text-success">{{ escort.creado|date:"d/m" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Top Escorts Masculinos -->
+        {% if top_masculinos %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="text-info">🕺 Top Escorts Masculinos</h3>
+                    <a href="/publicaciones/escorts-masculinos/" class="btn btn-outline-info btn-sm">Ver todos</a>
+                </div>
+                <div class="row g-3">
+                    {% for escort in top_masculinos %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm ranking-card">
+                            <div class="position-relative">
+                                {% if escort.fotos.first %}
+                                <img src="{{ escort.fotos.first.imagen.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ escort.titulo }}">
+                                {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                </div>
+                                {% endif %}
+                                <span class="position-absolute top-0 start-0 badge bg-info m-2">
+                                    💪 Masculino
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ escort.titulo|truncatechars:30 }}</h5>
+                                <p class="text-muted small mb-1">
+                                    <i class="fas fa-map-marker-alt"></i> {{ escort.ciudad }}
+                                    | <i class="fas fa-dollar-sign"></i> ${{ escort.precio }}/h
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ escort.usuario.first_name|default:escort.usuario.username }}</small>
+                                    <small class="text-success">{{ escort.creado|date:"d/m" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Top Trans y Travestis -->
+        {% if top_trans %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="text-secondary">✨ Top Trans y Travestis</h3>
+                    <a href="/publicaciones/trans-travestis/" class="btn btn-outline-secondary btn-sm">Ver todas</a>
+                </div>
+                <div class="row g-3">
+                    {% for escort in top_trans %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm ranking-card">
+                            <div class="position-relative">
+                                {% if escort.fotos.first %}
+                                <img src="{{ escort.fotos.first.imagen.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ escort.titulo }}">
+                                {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                </div>
+                                {% endif %}
+                                <span class="position-absolute top-0 start-0 badge bg-secondary m-2">
+                                    ✨ Trans
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ escort.titulo|truncatechars:30 }}</h5>
+                                <p class="text-muted small mb-1">
+                                    <i class="fas fa-map-marker-alt"></i> {{ escort.ciudad }}
+                                    | <i class="fas fa-dollar-sign"></i> ${{ escort.precio }}/h
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ escort.usuario.first_name|default:escort.usuario.username }}</small>
+                                    <small class="text-success">{{ escort.creado|date:"d/m" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Destacados del mes -->
+        {% if destacados_mes %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="text-warning">🌟 Destacados del Mes</h3>
+                    <small class="text-muted">Los mejor calificados este mes</small>
+                </div>
+                <div class="row g-3">
+                    {% for escort in destacados_mes %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm border-warning ranking-card">
+                            <div class="position-relative">
+                                {% if escort.foto_principal %}
+                                <img src="{{ escort.foto_principal }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ escort.titulo }}">
+                                {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                </div>
+                                {% endif %}
+                                <span class="position-absolute top-0 start-0 badge bg-warning m-2">
+                                    🌟 DESTACADO
+                                </span>
+                                {% if escort.puntuacion > 0 %}
+                                <span class="position-absolute top-0 end-0 badge bg-success m-2">
+                                    {{ escort.puntuacion }}★ ({{ escort.total_reviews }})
+                                </span>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ escort.titulo|truncatechars:30 }}</h5>
+                                <p class="text-muted small mb-1">
+                                    <i class="fas fa-map-marker-alt"></i> {{ escort.ciudad }}
+                                    {% if escort.precio %}
+                                    | <i class="fas fa-dollar-sign"></i> ${{ escort.precio }}/h
+                                    {% endif %}
+                                </p>
+                                {% if escort.servicios %}
+                                <div class="mb-2">
+                                    {% for servicio in escort.servicios %}
+                                    <span class="badge bg-light text-dark me-1">{{ servicio }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ escort.usuario }}</small>
+                                    {% if escort.telefono %}
+                                    <div>
+                                        {% if escort.whatsapp %}
+                                        <span class="badge bg-success"><i class="fab fa-whatsapp"></i></span>
+                                        {% endif %}
+                                        <small class="text-primary">{{ escort.telefono }}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.ranking-card {
+    transition: transform 0.2s;
+}
+.ranking-card:hover {
+    transform: translateY(-5px);
+}
+</style>
+{% endif %}

@@ -1,0 +1,228 @@
+<!-- Template del Podium de Rankings - Efecto "Abanico de Cartas" -->
+<style>
+.podium-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ranking-card {
+    position: absolute;
+    width: 33%;
+    aspect-ratio: 9/16;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* TOP #1 - Centro y Encima */
+.ranking-card.top-1 {
+    z-index: 30;
+    left: 33.5%;
+    top: 10%;
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.8),
+        0 0 60px rgba(255, 215, 0, 0.4),
+        inset 0 0 20px rgba(255, 215, 0, 0.2);
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #FFD700, #FFA500, #FFD700) 1;
+}
+
+/* TOP #2 - Mi Izquierda, un poco debajo */
+.ranking-card.top-2 {
+    z-index: 20;
+    left: 5%;
+    top: 15%;
+    transform: scale(0.95);
+    box-shadow: 
+        0 0 25px rgba(192, 192, 192, 0.7),
+        0 0 50px rgba(192, 192, 192, 0.3),
+        inset 0 0 15px rgba(192, 192, 192, 0.2);
+    border: 2px solid;
+    border-image: linear-gradient(45deg, #C0C0C0, #E5E5E5, #C0C0C0) 1;
+}
+
+/* TOP #3 - Mi Derecha, más debajo que #2 */
+.ranking-card.top-3 {
+    z-index: 10;
+    right: 5%;
+    top: 20%;
+    transform: scale(0.9);
+    box-shadow: 
+        0 0 20px rgba(205, 127, 50, 0.6),
+        0 0 40px rgba(205, 127, 50, 0.3),
+        inset 0 0 10px rgba(205, 127, 50, 0.2);
+    border: 2px solid;
+    border-image: linear-gradient(45deg, #CD7F32, #D2691E, #CD7F32) 1;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 20px;
+    color: white;
+    transform: translateY(50px);
+    transition: transform 0.3s ease;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.ranking-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.ranking-badge.badge-1 {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #000;
+}
+
+.ranking-badge.badge-2 {
+    background: linear-gradient(45deg, #C0C0C0, #E5E5E5);
+    color: #000;
+}
+
+.ranking-badge.badge-3 {
+    background: linear-gradient(45deg, #CD7F32, #D2691E);
+    color: #fff;
+}
+
+/* Efectos Hover */
+.ranking-card:hover {
+    transform: scale(1.1) !important;
+    z-index: 50 !important;
+}
+
+.ranking-card:hover .card-overlay {
+    transform: translateY(0);
+}
+
+.ranking-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .podium-container {
+        height: 70vh;
+    }
+    
+    .ranking-card {
+        width: 45%;
+    }
+    
+    .ranking-card.top-1 {
+        left: 27.5%;
+        transform: scale(1);
+    }
+    
+    .ranking-card.top-2 {
+        left: 2%;
+        transform: scale(0.85);
+    }
+    
+    .ranking-card.top-3 {
+        right: 2%;
+        transform: scale(0.85);
+    }
+}
+</style>
+
+<div class="podium-container">
+    {% if top_femeninos %}
+        <!-- TOP #1 - Centro y Encima -->
+        {% if top_femeninos.0 %}
+        <div class="ranking-card top-1">
+            <div class="ranking-badge badge-1">1°</div>
+            {% if top_femeninos.0.fotos.first %}
+                <img src="{{ top_femeninos.0.fotos.first.imagen.url }}" alt="{{ top_femeninos.0.titulo }}" class="card-image">
+            {% else %}
+                <div class="card-image" style="background: linear-gradient(45deg, #FFD700, #FFA500); display: flex; align-items: center; justify-content: center; color: #000; font-size: 2rem;">👑</div>
+            {% endif %}
+            <div class="card-overlay">
+                <div class="card-title">{{ top_femeninos.0.titulo|truncatechars:20 }}</div>
+                <div class="card-subtitle">{{ top_femeninos.0.ciudad }} • ${{ top_femeninos.0.precio }}</div>
+                <div class="text-warning">⭐⭐⭐⭐⭐ TOP #1</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- TOP #2 - Mi Izquierda -->
+        {% if top_femeninos.1 %}
+        <div class="ranking-card top-2">
+            <div class="ranking-badge badge-2">2°</div>
+            {% if top_femeninos.1.fotos.first %}
+                <img src="{{ top_femeninos.1.fotos.first.imagen.url }}" alt="{{ top_femeninos.1.titulo }}" class="card-image">
+            {% else %}
+                <div class="card-image" style="background: linear-gradient(45deg, #C0C0C0, #E5E5E5); display: flex; align-items: center; justify-content: center; color: #000; font-size: 2rem;">🥈</div>
+            {% endif %}
+            <div class="card-overlay">
+                <div class="card-title">{{ top_femeninos.1.titulo|truncatechars:20 }}</div>
+                <div class="card-subtitle">{{ top_femeninos.1.ciudad }} • ${{ top_femeninos.1.precio }}</div>
+                <div class="text-light">⭐⭐⭐⭐ TOP #2</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- TOP #3 - Mi Derecha -->
+        {% if top_femeninos.2 %}
+        <div class="ranking-card top-3">
+            <div class="ranking-badge badge-3">3°</div>
+            {% if top_femeninos.2.fotos.first %}
+                <img src="{{ top_femeninos.2.fotos.first.imagen.url }}" alt="{{ top_femeninos.2.titulo }}" class="card-image">
+            {% else %}
+                <div class="card-image" style="background: linear-gradient(45deg, #CD7F32, #D2691E); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2rem;">🥉</div>
+            {% endif %}
+            <div class="card-overlay">
+                <div class="card-title">{{ top_femeninos.2.titulo|truncatechars:20 }}</div>
+                <div class="card-subtitle">{{ top_femeninos.2.ciudad }} • ${{ top_femeninos.2.precio }}</div>
+                <div class="text-warning">⭐⭐⭐ TOP #3</div>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+        <!-- Placeholder cuando no hay datos -->
+        <div class="text-center text-white">
+            <h3>🏆 Próximamente: Rankings de Escorts</h3>
+            <p>Los mejores perfiles aparecerán aquí</p>
+        </div>
+    {% endif %}
+</div>

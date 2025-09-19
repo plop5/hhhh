@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sube tus fotos | iScort</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .preview-img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 0 8px 8px 0;
+            border: 2px solid #eee;
+            position: relative;
+        }
+        .img-delete-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            color: #d00;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <h2 class="mb-4">Sube tus fotos (máx. 10)</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div id="preview-container" class="d-flex flex-wrap mb-3"></div>
+                <input type="file" name="fotos" id="fotos" class="form-control mb-3" accept="image/*" multiple required>
+                <div class="text-danger small mb-2" id="error-msg" style="display:none;"></div>
+                <button type="submit" class="btn btn-success">Publicar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    const fotosInput = document.getElementById('fotos');
+    const previewContainer = document.getElementById('preview-container');
+    const errorMsg = document.getElementById('error-msg');
+    let filesArray = [];
+
+    fotosInput.addEventListener('change', function(e) {
+        filesArray = Array.from(fotosInput.files);
+        if (filesArray.length > 10) {
+            errorMsg.style.display = 'block';
+            errorMsg.textContent = 'Solo puedes subir hasta 10 fotos.';
+            fotosInput.value = '';
+            previewContainer.innerHTML = '';
+            return;
+        } else {
+            errorMsg.style.display = 'none';
+        }
+        previewContainer.innerHTML = '';
+        filesArray.forEach((file, idx) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.style.position = 'relative';
+                div.style.display = 'inline-block';
+                div.innerHTML = `<img src="${e.target.result}" class="preview-img"><button type="button" class="img-delete-btn" data-idx="${idx}">&times;</button>`;
+                previewContainer.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+    previewContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('img-delete-btn')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            filesArray.splice(idx, 1);
+            // Re-assign files to input
+            const dataTransfer = new DataTransfer();
+            filesArray.forEach(f => dataTransfer.items.add(f));
+            fotosInput.files = dataTransfer.files;
+            // Trigger change to re-render
+            fotosInput.dispatchEvent(new Event('change'));
+        }
+    });
+</script>
+</body>
+</html>

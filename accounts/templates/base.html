@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}iScort - Premium Escorts Platform{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/premium.css' %}" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar global -->
+    <nav class="navbar navbar-expand-lg premium-navbar navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-decoration-none" href="/">iScort</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <div class="ms-auto d-flex gap-3 premium-actions">
+                    <a href="/registro/" class="premium-btn premium-btn-primary text-decoration-none">
+                        <i class="fas fa-user-plus me-2"></i>Registrarse
+                    </a>
+                    <a href="/login/" class="premium-btn premium-btn-outline text-decoration-none">
+                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </a>
+                    <a href="/panel/" class="premium-btn premium-btn-outline text-decoration-none">
+                        <i class="fas fa-tachometer-alt me-2"></i>Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido de página -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer global -->
+    <footer class="footer-premium">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="mb-4">
+                        <span class="navbar-brand" style="font-size: 2.5rem;">iScort</span>
+                    </div>
+                    <p class="footer-subtitle">
+                        La plataforma premium de acompañantes más elegante y segura de Ecuador
+                    </p>
+                    <div class="mb-4">
+                        <a href="#" class="text-warning me-4"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-warning me-4"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-warning me-4"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-warning"><i class="fab fa-telegram fa-2x"></i></a>
+                    </div>
+                    <hr class="footer-sep">
+                    <p class="mb-0 footer-legal">
+                        © 2025 iScort Ecuador. Todos los derechos reservados.
+                        <span class="text-warning">🔒 Plataforma Segura y Verificada</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_body %}{% endblock %}
+</body>
+</html>
